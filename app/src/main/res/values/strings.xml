@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">TaskMasterApp</string>
+    <string name="task_title">Task Title</string>
 </resources>
