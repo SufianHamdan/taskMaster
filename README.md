@@ -20,3 +20,16 @@ Task Detail page that has the task title and task description
 ![image](/screenshots/TaskTitlePageFromButton3.png)
 ![image](/screenshots/SettingPage.png)
 ![image](/screenshots/TestSettingPage.png)
+
+lab03
+The home page is updated with new recyclerview and its displaying hard coded tasks
+Task detail page updated and its displaying task name, body and status.
+
+* recyclerview in home page
+![image](/screenshots/recycleview/recycleview_homepage.png)
+
+* task detail page
+![image](/screenshots/recycleview/taskDetailFromRecycleView.png)
+
+* delete button
+![image](/screenshots/recycleview/deleteFromRecycleView.png)

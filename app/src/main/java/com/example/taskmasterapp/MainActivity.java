@@ -1,17 +1,36 @@
 package com.example.taskmasterapp;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     public static final String BTNTITLE = "Title";
+    public static final String TASK_TITLE = "task_title";
+    public static final String TASK_BODY = "task_body";
+    public static final String TASK_STATUS = "task_status";
+
+    Task task1 = new Task("Display Username", "this is the first task", "in progress");
+    Task task2 = new Task("Pass values to task detail", "this is the second task", "new");
+    Task task3 = new Task("implement task adapter", "this is the third task", "completed");
+    Task task4 = new Task("create task class", "this is the fourth task", "assigned");
+
+    private List<Task> tasks;
+
+    TaskAdapter taskAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +57,45 @@ public class MainActivity extends AppCompatActivity {
         // Setting page
         Button settingBtn = findViewById(R.id.settingBtn);
         settingBtn.setOnClickListener(getSettingPage);
+
+        RecyclerView recyclerView = findViewById(R.id.tasks_recycleView);
+
+        tasks = new ArrayList<>();
+        tasks.add(task1);
+        tasks.add(task2);
+        tasks.add(task3);
+        tasks.add(task4);
+
+        taskAdapter = new TaskAdapter(tasks, new TaskAdapter.OnTaskClickListener() {
+            @Override
+            public void onTaskClicked(int position) {
+                Intent goToDetailsIntent = new Intent(getApplicationContext(), TaskDetail.class);
+                goToDetailsIntent.putExtra(TASK_TITLE, tasks.get(position).getTaskName());
+                goToDetailsIntent.putExtra(TASK_BODY, tasks.get(position).getTaskBody());
+                goToDetailsIntent.putExtra(TASK_STATUS, tasks.get(position).getStatus());
+                startActivity(goToDetailsIntent);
+            }
+
+            @Override
+            public void onDeleteTask(int position) {
+                tasks.remove(position);
+                listItemDeleted();
+            }
+        });
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(
+                this,
+                LinearLayoutManager.VERTICAL,
+                false);
+
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(taskAdapter);
+
+
+    }
+    @SuppressLint("NotifyDataSetChanged")
+    private void listItemDeleted() {
+        taskAdapter.notifyDataSetChanged();
     }
 
     private View.OnClickListener getViewAddTask = new View.OnClickListener() {
