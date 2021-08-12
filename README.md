@@ -33,3 +33,13 @@ Task detail page updated and its displaying task name, body and status.
 
 * delete button
 ![image](/screenshots/recycleview/deleteFromRecycleView.png)
+
+lab04 
+The home page recyclerview is updated and its displaying data from Room database
+Add task is updated also now we add task to the database 
+the delete text inside the card now also delete from database
+
+![image](/screenshots/Room/roomHomePage.png)
+![image](/screenshots/Room/roomAddTask.png)
+![image](/screenshots/Room/roomHomePageAfterAddingTask.png)
+![image](/screenshots/Room/roomTaskDetails.png)
