@@ -43,3 +43,7 @@ the delete text inside the card now also delete from database
 ![image](/screenshots/Room/roomAddTask.png)
 ![image](/screenshots/Room/roomHomePageAfterAddingTask.png)
 ![image](/screenshots/Room/roomTaskDetails.png)
+
+lab05
+I added all the [test](./app/src/androidTest/java/com/example/taskmasterapp/taskMasterTest.java) for all the functionality in the app
+![image](./screenshots/taskmasterTestsPassed.png)

@@ -2,4 +2,5 @@
     <string name="app_name">TaskMasterApp</string>
     <string name="task_title">Task Title</string>
     <string name="user_name">user_name</string>
+    <string name="task_detail_title">task_detail_title</string>
 </resources>

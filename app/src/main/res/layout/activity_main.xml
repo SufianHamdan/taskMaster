@@ -42,18 +42,18 @@
         android:id="@+id/myTasks"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:text="My Task"
+        android:layout_marginTop="48dp"
+        android:text="My Tasks"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tasks_recycleView"
         android:layout_width="match_parent"
-        android:layout_height="320dp"
+        android:layout_height="510dp"
         android:layout_marginTop="40dp"
         android:padding="5dp"
         app:layout_constraintBottom_toTopOf="@+id/addTaskButton"
@@ -67,8 +67,8 @@
         android:id="@+id/allTasksButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="72dp"
-        android:layout_marginBottom="200dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="96dp"
         android:text="All Task"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -77,8 +77,8 @@
         android:id="@+id/addTaskButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="84dp"
-        android:layout_marginBottom="200dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="96dp"
         android:text="Add Task"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -87,8 +87,8 @@
         android:id="@+id/settingBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="176dp"
-        android:layout_marginBottom="116dp"
+        android:layout_marginStart="152dp"
+        android:layout_marginBottom="16dp"
         android:text="Setting"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -101,9 +101,10 @@
         android:text="@string/user_name"
         app:layout_constraintBottom_toTopOf="@+id/tasks_recycleView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/myTasks"
-        app:layout_constraintVertical_bias="0.444" />
+        app:layout_constraintVertical_bias="0.265" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
