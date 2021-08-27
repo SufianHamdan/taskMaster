@@ -47,3 +47,22 @@ the delete text inside the card now also delete from database
 lab05
 I added all the [test](./app/src/androidTest/java/com/example/taskmasterapp/taskMasterTest.java) for all the functionality in the app
 ![image](./screenshots/taskmasterTestsPassed.png)
+
+lab06
+The data is stored in AWS Amplify using DynamoDB 
+And the app is getting the data from DynamoDB
+
+
+lab07
+The user can select a team while adding a task to specify in which team this task for
+The user also can go setting and select a team to display all tasks that belongs to that team
+
+
+lab08
+Using S3 storage The user can upload a file
+
+lab09
+Using AWS The user can receive a notification   
+
+
+

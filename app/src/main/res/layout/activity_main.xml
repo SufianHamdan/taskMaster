@@ -43,7 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
-        android:text="My Tasks"
+        android:text="@string/mytasks"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
@@ -53,8 +53,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tasks_recycleView"
         android:layout_width="match_parent"
-        android:layout_height="510dp"
-        android:layout_marginTop="40dp"
+        android:layout_height="410dp"
+        android:layout_marginTop="50dp"
         android:padding="5dp"
         app:layout_constraintBottom_toTopOf="@+id/addTaskButton"
         app:layout_constraintEnd_toEndOf="parent"
@@ -63,15 +63,6 @@
         app:layout_constraintTop_toBottomOf="@+id/myTasks"
         app:layout_constraintVertical_bias="0.447" />
 
-    <Button
-        android:id="@+id/allTasksButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="28dp"
-        android:layout_marginBottom="96dp"
-        android:text="All Task"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/addTaskButton"
@@ -79,7 +70,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginBottom="96dp"
-        android:text="Add Task"
+        android:text="@string/addtask"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -87,9 +78,9 @@
         android:id="@+id/settingBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="152dp"
-        android:layout_marginBottom="16dp"
-        android:text="Setting"
+        android:layout_marginStart="284dp"
+        android:layout_marginBottom="96dp"
+        android:text="@string/setting"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

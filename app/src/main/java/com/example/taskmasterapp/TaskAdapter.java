@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.amplifyframework.datastore.generated.model.Task;
+
 import java.util.List;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
@@ -19,7 +21,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
     public interface OnTaskClickListener {
         void onTaskClicked(int position);
-        void onDeleteTask(int position);
+//        void onDeleteTask(int position);
     }
 
     public TaskAdapter(List<Task> tasks, OnTaskClickListener listener) {
@@ -37,8 +39,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull TaskAdapter.ViewHolder holder, int position) {
         Task task = tasks.get(position);
-        holder.taskName.setText(task.getTaskName());
-        holder.taskStatus.setText(task.getStatus());
+        holder.taskName.setText(task.getTitle());
+        holder.taskStatus.setText(task.getState());
     }
 
 
@@ -71,12 +73,12 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                 }
             });
 
-            taskDelete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listener.onDeleteTask(getAdapterPosition());
-                }
-            });
+//            taskDelete.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    listener.onDeleteTask(getAdapterPosition());
+//                }
+//            });
         }
     }
 }

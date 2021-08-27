@@ -1,5 +1,7 @@
 plugins {
     id 'com.android.application'
+    // Add this line
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -66,4 +68,38 @@ dependencies {
 
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:3.0.2'
+
+    //aws amplify
+    implementation 'com.amplifyframework:aws-api:1.24.0'
+    implementation 'com.amplifyframework:aws-datastore:1.24.0'
+
+    implementation 'com.amplifyframework:core:1.24.0'
+
+    implementation 'com.amplifyframework:aws-auth-cognito:1.24.0'
+    implementation 'com.amplifyframework:aws-storage-s3:1.24.0'
+
+    //picasso
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
+    // Import the Firebase BoM
+    implementation platform('com.google.firebase:firebase-bom:28.4.0')
+
+
+    // Add the dependency for the Firebase SDK for Google Analytics
+    // When using the BoM, don't specify versions in Firebase dependencies
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-messaging:22.0.0'
+
+    // Overrides an auth dependency to ensure correct behavior
+    implementation 'com.google.android.gms:play-services-auth:19.2.0'
+
+
+    implementation 'com.amazonaws:aws-android-sdk-pinpoint:2.25.+'
+    implementation ('com.amazonaws:aws-android-sdk-mobile-client:2.26.+@aar') { transitive = true }
+
+    // Declare the dependency for the Analytics library
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation 'com.google.firebase:firebase-analytics'
+
+
 }

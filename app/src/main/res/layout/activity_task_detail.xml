@@ -7,13 +7,34 @@
     android:layout_height="match_parent"
     tools:context=".TaskDetail">
 
+    <ImageView
+        android:id="@+id/taskImageDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:contentDescription="@string/task_image"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/task_body" />
+
+    <TextView
+        android:id="@+id/fileLinkDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/download_the_linked_file"
+        android:layout_marginTop="30dp"
+        android:visibility="gone"
+        android:textColor="#FF03DAC5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/singleTaskTeam" />
     <TextView
         android:id="@+id/singleTaskTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="160dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="88dp"
         android:text="@string/task_detail_title"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
@@ -22,21 +43,34 @@
         android:id="@+id/singleTaskStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="160dp"
-        android:layout_marginTop="84dp"
-        android:text="Task Detail"
+        android:text="@string/task_status_details"
+        app:layout_constraintBottom_toTopOf="@+id/task_body"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/singleTaskTitle"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/task_body"
         android:layout_width="321dp"
         android:layout_height="72dp"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="68dp"
         android:text="There is no one who loves pain itself, who seeks after it and wants to have it, simply because it is pain..."
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/singleTaskTitle" />
 
+    <TextView
+        android:id="@+id/singleTaskTeam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+
+
+        android:text="@string/task_Team_details"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/task_body"
+        tools:ignore="MissingConstraints" />
 </androidx.constraintlayout.widget.ConstraintLayout>

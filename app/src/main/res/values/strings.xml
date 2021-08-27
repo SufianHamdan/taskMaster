@@ -3,4 +3,23 @@
     <string name="task_title">Task Title</string>
     <string name="user_name">user_name</string>
     <string name="task_detail_title">task_detail_title</string>
+    <string name="alltasks">allTasks</string>
+    <string name="mytasks">myTasks</string>
+    <string name="setting">Setting</string>
+    <string name="addtask">AddTask</string>
+    <string name="task_status_details">Task_Status_details</string>
+    <string name="task_Team_details">task_team_details</string>
+    <string name="confirmationnumbertextview">confirmationNumberTextView</string>
+    <string name="sign_out">sign out</string>
+    <string name="upload_file">Upload File</string>
+    <string name="task_image">taskImage</string>
+    <string name="download_the_linked_file">Download</string>
+
+    <string-array name="team_menu">
+        <item>Team A</item>
+        <item>Team B</item>
+        <item>Team C</item>
+
+    </string-array>
+
 </resources>

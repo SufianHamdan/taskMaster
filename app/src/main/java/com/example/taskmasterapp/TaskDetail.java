@@ -1,17 +1,26 @@
 package com.example.taskmasterapp;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.amplifyframework.core.Amplify;
+import com.squareup.picasso.Picasso;
 
 import java.util.Objects;
 
 public class TaskDetail extends AppCompatActivity {
+
+    private String fileURL;
 
     public static final String TAG = "TaskDetails";
     AppDatabase database;
@@ -23,6 +32,42 @@ public class TaskDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
 
+        TextView fileLinkDetail = findViewById(R.id.fileLinkDetail);
+        fileLinkDetail.setOnClickListener(view -> {
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(fileURL));
+            startActivity(i);
+        });
+
+        Intent intent = getIntent();
+
+        if (intent.getStringExtra("fileName") != null) {
+
+            Amplify.Storage.getUrl(
+                    intent.getStringExtra("fileName"),
+                    result -> {
+                        Log.i("MyAmplifyApp", "Successfully generated: " + result.getUrl());
+                        runOnUiThread(() -> {
+                            if (intent.getStringExtra("fileName").endsWith("png")
+                                    || intent.getStringExtra("fileName").endsWith("jpg")
+                                    || intent.getStringExtra("fileName").endsWith("jpeg")
+                                    || intent.getStringExtra("fileName").endsWith("gif")) {
+                                ImageView taskImageDetail = findViewById(R.id.taskImageDetail);
+
+                                Picasso.get().load(String.valueOf(result.getUrl())).into(taskImageDetail);
+
+                                taskImageDetail.setVisibility(View.VISIBLE);
+                            }else{
+                                fileURL = String.valueOf(result.getUrl());
+//                                String link = "<a href=\""+ result.getUrl() + "\">Download the linked file</a>";
+                                fileLinkDetail.setVisibility(View.VISIBLE);
+                            }
+                        });
+                    },
+                    error -> Log.e("MyAmplifyApp", "URL generation failure", error)
+            );
+        }
+
 
         setContentView(R.layout.activity_task_detail);
         Objects.requireNonNull(getSupportActionBar()).setDefaultDisplayHomeAsUpEnabled(true);
@@ -30,17 +75,8 @@ public class TaskDetail extends AppCompatActivity {
         String getTaskTitle = getIntent().getStringExtra(MainActivity.TASK_TITLE);
         String getTaskBody = getIntent().getStringExtra(MainActivity.TASK_BODY);
         String getTaskStatus = getIntent().getStringExtra(MainActivity.TASK_STATUS);
+        String getTaskTeam = getIntent().getStringExtra(MainActivity.TASK_TEAM);
 
-        // trying to get task id from main activity and display info from db
-
-//        database = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, MainActivity.TASKS)
-//                .allowMainThreadQueries().build();
-//        taskDao = database.taskDao();
-//        Log.i(TAG, "onCreate: task id from main activity is:" + (getIntent().getStringExtra(MainActivity.TASK_ID)));
-//
-//        Task task = taskDao.findTaskById(Integer.parseInt(getIntent().getStringExtra(MainActivity.TASK_ID)));
-//
-//        Log.i(TAG, "onCreate: task name is:" + task.getTaskName());
 
         TextView taskTitleTextView = findViewById(R.id.singleTaskTitle);
         taskTitleTextView.setText(getTaskTitle);
@@ -50,6 +86,9 @@ public class TaskDetail extends AppCompatActivity {
 
         TextView taskStatusTextView = findViewById(R.id.singleTaskStatus);
         taskStatusTextView.setText(getTaskStatus);
+
+        TextView taskTeamTextView = findViewById(R.id.singleTaskTeam);
+        taskStatusTextView.setText(getTaskTeam);
 
     }
 }
