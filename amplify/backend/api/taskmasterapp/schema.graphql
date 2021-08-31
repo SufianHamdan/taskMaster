@@ -1,20 +1,18 @@
-type Team @model
-{
-    id:ID!
-    name:String!
-    task:[Task] @connection(keyName:"tasks",fields:["id"])
+type Task
+@model
+@key(name:"taskItem", fields: ["taskId"]) {
+    id: ID!
+    title: String!
+    description: String
+    status: String
+    taskId:ID!
+    fileName:String
+    team: Team @connection(fields: ["taskId"])
+
 }
 
-
-
-type Task @model
-@key(name:"tasks",fields:["teamId"])
-{
-    id: ID!
-    title:String!
-    body:String!
-    state:String!
-    teamId:ID!
-    team:Team! @connection(fields:["teamId"])
-
+type Team @model {
+    id:ID!
+    name:String!
+    teamTasks: [Task] @connection(keyName: "taskItem" , fields:["id"])
 }

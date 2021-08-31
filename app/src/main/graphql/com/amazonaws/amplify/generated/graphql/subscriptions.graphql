@@ -1,96 +1,16 @@
 # this is an auto generated file. This will be overwritten
-subscription OnCreateTeam {
-  onCreateTeam {
-    id
-    name
-    task {
-      items {
-        id
-        title
-        body
-        state
-        teamId
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
-      nextToken
-      startedAt
-    }
-    _version
-    _deleted
-    _lastChangedAt
-    createdAt
-    updatedAt
-  }
-}
-subscription OnUpdateTeam {
-  onUpdateTeam {
-    id
-    name
-    task {
-      items {
-        id
-        title
-        body
-        state
-        teamId
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
-      nextToken
-      startedAt
-    }
-    _version
-    _deleted
-    _lastChangedAt
-    createdAt
-    updatedAt
-  }
-}
-subscription OnDeleteTeam {
-  onDeleteTeam {
-    id
-    name
-    task {
-      items {
-        id
-        title
-        body
-        state
-        teamId
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
-      nextToken
-      startedAt
-    }
-    _version
-    _deleted
-    _lastChangedAt
-    createdAt
-    updatedAt
-  }
-}
 subscription OnCreateTask {
   onCreateTask {
     id
     title
-    body
-    state
-    teamId
+    description
+    status
+    taskId
+    fileName
     team {
       id
       name
-      task {
+      teamTasks {
         nextToken
         startedAt
       }
@@ -111,13 +31,14 @@ subscription OnUpdateTask {
   onUpdateTask {
     id
     title
-    body
-    state
-    teamId
+    description
+    status
+    taskId
+    fileName
     team {
       id
       name
-      task {
+      teamTasks {
         nextToken
         startedAt
       }
@@ -138,13 +59,14 @@ subscription OnDeleteTask {
   onDeleteTask {
     id
     title
-    body
-    state
-    teamId
+    description
+    status
+    taskId
+    fileName
     team {
       id
       name
-      task {
+      teamTasks {
         nextToken
         startedAt
       }
@@ -153,6 +75,90 @@ subscription OnDeleteTask {
       _lastChangedAt
       createdAt
       updatedAt
+    }
+    _version
+    _deleted
+    _lastChangedAt
+    createdAt
+    updatedAt
+  }
+}
+subscription OnCreateTeam {
+  onCreateTeam {
+    id
+    name
+    teamTasks {
+      items {
+        id
+        title
+        description
+        status
+        taskId
+        fileName
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      nextToken
+      startedAt
+    }
+    _version
+    _deleted
+    _lastChangedAt
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateTeam {
+  onUpdateTeam {
+    id
+    name
+    teamTasks {
+      items {
+        id
+        title
+        description
+        status
+        taskId
+        fileName
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      nextToken
+      startedAt
+    }
+    _version
+    _deleted
+    _lastChangedAt
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteTeam {
+  onDeleteTeam {
+    id
+    name
+    teamTasks {
+      items {
+        id
+        title
+        description
+        status
+        taskId
+        fileName
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      nextToken
+      startedAt
     }
     _version
     _deleted

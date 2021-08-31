@@ -20,18 +20,20 @@ import static com.amplifyframework.core.model.query.predicate.QueryField.field;
 /** This is an auto generated class representing the Task type in your schema. */
 @SuppressWarnings("all")
 @ModelConfig(pluralName = "Tasks")
-@Index(name = "tasks", fields = {"teamId"})
+@Index(name = "taskItem", fields = {"taskId"})
 public final class Task implements Model {
   public static final QueryField ID = field("Task", "id");
   public static final QueryField TITLE = field("Task", "title");
-  public static final QueryField BODY = field("Task", "body");
-  public static final QueryField STATE = field("Task", "state");
-  public static final QueryField TEAM = field("Task", "teamId");
+  public static final QueryField DESCRIPTION = field("Task", "description");
+  public static final QueryField STATUS = field("Task", "status");
+  public static final QueryField FILE_NAME = field("Task", "fileName");
+  public static final QueryField TEAM = field("Task", "taskId");
   private final @ModelField(targetType="ID", isRequired = true) String id;
   private final @ModelField(targetType="String", isRequired = true) String title;
-  private final @ModelField(targetType="String", isRequired = true) String body;
-  private final @ModelField(targetType="String", isRequired = true) String state;
-  private final @ModelField(targetType="Team", isRequired = true) @BelongsTo(targetName = "teamId", type = Team.class) Team team;
+  private final @ModelField(targetType="String") String description;
+  private final @ModelField(targetType="String") String status;
+  private final @ModelField(targetType="String") String fileName;
+  private final @ModelField(targetType="Team") @BelongsTo(targetName = "taskId", type = Team.class) Team team;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime createdAt;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime updatedAt;
   public String getId() {
@@ -42,12 +44,16 @@ public final class Task implements Model {
       return title;
   }
   
-  public String getBody() {
-      return body;
+  public String getDescription() {
+      return description;
   }
   
-  public String getState() {
-      return state;
+  public String getStatus() {
+      return status;
+  }
+  
+  public String getFileName() {
+      return fileName;
   }
   
   public Team getTeam() {
@@ -62,11 +68,12 @@ public final class Task implements Model {
       return updatedAt;
   }
   
-  private Task(String id, String title, String body, String state, Team team) {
+  private Task(String id, String title, String description, String status, String fileName, Team team) {
     this.id = id;
     this.title = title;
-    this.body = body;
-    this.state = state;
+    this.description = description;
+    this.status = status;
+    this.fileName = fileName;
     this.team = team;
   }
   
@@ -80,8 +87,9 @@ public final class Task implements Model {
       Task task = (Task) obj;
       return ObjectsCompat.equals(getId(), task.getId()) &&
               ObjectsCompat.equals(getTitle(), task.getTitle()) &&
-              ObjectsCompat.equals(getBody(), task.getBody()) &&
-              ObjectsCompat.equals(getState(), task.getState()) &&
+              ObjectsCompat.equals(getDescription(), task.getDescription()) &&
+              ObjectsCompat.equals(getStatus(), task.getStatus()) &&
+              ObjectsCompat.equals(getFileName(), task.getFileName()) &&
               ObjectsCompat.equals(getTeam(), task.getTeam()) &&
               ObjectsCompat.equals(getCreatedAt(), task.getCreatedAt()) &&
               ObjectsCompat.equals(getUpdatedAt(), task.getUpdatedAt());
@@ -93,8 +101,9 @@ public final class Task implements Model {
     return new StringBuilder()
       .append(getId())
       .append(getTitle())
-      .append(getBody())
-      .append(getState())
+      .append(getDescription())
+      .append(getStatus())
+      .append(getFileName())
       .append(getTeam())
       .append(getCreatedAt())
       .append(getUpdatedAt())
@@ -108,8 +117,9 @@ public final class Task implements Model {
       .append("Task {")
       .append("id=" + String.valueOf(getId()) + ", ")
       .append("title=" + String.valueOf(getTitle()) + ", ")
-      .append("body=" + String.valueOf(getBody()) + ", ")
-      .append("state=" + String.valueOf(getState()) + ", ")
+      .append("description=" + String.valueOf(getDescription()) + ", ")
+      .append("status=" + String.valueOf(getStatus()) + ", ")
+      .append("fileName=" + String.valueOf(getFileName()) + ", ")
       .append("team=" + String.valueOf(getTeam()) + ", ")
       .append("createdAt=" + String.valueOf(getCreatedAt()) + ", ")
       .append("updatedAt=" + String.valueOf(getUpdatedAt()))
@@ -145,6 +155,7 @@ public final class Task implements Model {
       null,
       null,
       null,
+      null,
       null
     );
   }
@@ -152,41 +163,32 @@ public final class Task implements Model {
   public CopyOfBuilder copyOfBuilder() {
     return new CopyOfBuilder(id,
       title,
-      body,
-      state,
+      description,
+      status,
+      fileName,
       team);
   }
   public interface TitleStep {
-    BodyStep title(String title);
-  }
-  
-
-  public interface BodyStep {
-    StateStep body(String body);
-  }
-  
-
-  public interface StateStep {
-    TeamStep state(String state);
-  }
-  
-
-  public interface TeamStep {
-    BuildStep team(Team team);
+    BuildStep title(String title);
   }
   
 
   public interface BuildStep {
     Task build();
     BuildStep id(String id) throws IllegalArgumentException;
+    BuildStep description(String description);
+    BuildStep status(String status);
+    BuildStep fileName(String fileName);
+    BuildStep team(Team team);
   }
   
 
-  public static class Builder implements TitleStep, BodyStep, StateStep, TeamStep, BuildStep {
+  public static class Builder implements TitleStep, BuildStep {
     private String id;
     private String title;
-    private String body;
-    private String state;
+    private String description;
+    private String status;
+    private String fileName;
     private Team team;
     @Override
      public Task build() {
@@ -195,35 +197,39 @@ public final class Task implements Model {
         return new Task(
           id,
           title,
-          body,
-          state,
+          description,
+          status,
+          fileName,
           team);
     }
     
     @Override
-     public BodyStep title(String title) {
+     public BuildStep title(String title) {
         Objects.requireNonNull(title);
         this.title = title;
         return this;
     }
     
     @Override
-     public StateStep body(String body) {
-        Objects.requireNonNull(body);
-        this.body = body;
+     public BuildStep description(String description) {
+        this.description = description;
         return this;
     }
     
     @Override
-     public TeamStep state(String state) {
-        Objects.requireNonNull(state);
-        this.state = state;
+     public BuildStep status(String status) {
+        this.status = status;
+        return this;
+    }
+    
+    @Override
+     public BuildStep fileName(String fileName) {
+        this.fileName = fileName;
         return this;
     }
     
     @Override
      public BuildStep team(Team team) {
-        Objects.requireNonNull(team);
         this.team = team;
         return this;
     }
@@ -240,11 +246,12 @@ public final class Task implements Model {
   
 
   public final class CopyOfBuilder extends Builder {
-    private CopyOfBuilder(String id, String title, String body, String state, Team team) {
+    private CopyOfBuilder(String id, String title, String description, String status, String fileName, Team team) {
       super.id(id);
       super.title(title)
-        .body(body)
-        .state(state)
+        .description(description)
+        .status(status)
+        .fileName(fileName)
         .team(team);
     }
     
@@ -254,13 +261,18 @@ public final class Task implements Model {
     }
     
     @Override
-     public CopyOfBuilder body(String body) {
-      return (CopyOfBuilder) super.body(body);
+     public CopyOfBuilder description(String description) {
+      return (CopyOfBuilder) super.description(description);
     }
     
     @Override
-     public CopyOfBuilder state(String state) {
-      return (CopyOfBuilder) super.state(state);
+     public CopyOfBuilder status(String status) {
+      return (CopyOfBuilder) super.status(status);
+    }
+    
+    @Override
+     public CopyOfBuilder fileName(String fileName) {
+      return (CopyOfBuilder) super.fileName(fileName);
     }
     
     @Override

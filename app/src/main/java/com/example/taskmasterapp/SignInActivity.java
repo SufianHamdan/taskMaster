@@ -1,7 +1,12 @@
 package com.example.taskmasterapp;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -40,6 +45,23 @@ public class SignInActivity extends AppCompatActivity {
             Intent goToSignUp = new Intent(SignInActivity.this, SignUpActivity.class);
             startActivity(goToSignUp);
         });
+
+
+
+
+//        private void downloadFile(String Key, ImageView image){
+//            File imageFile;
+//            Amplify.Storage.downloadFile(
+//                    Key,
+//                    imageFile= new File(getApplicationContext().getFilesDir() + "/download.png"),
+//                    result ->{
+//                        Bitmap myBitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
+//                        image.setImageBitmap(myBitmap);
+//                        Log.i("MyAmplifyApp", "Successfully downloaded: " + result.getFile().getName());
+//                    } ,
+//                    error -> Log.e("MyAmplifyApp",  "Download Failure", error)
+//            );
+//        }
     }
 
     void signIn(String username, String password) {

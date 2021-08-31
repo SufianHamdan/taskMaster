@@ -53,8 +53,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tasks_recycleView"
         android:layout_width="match_parent"
-        android:layout_height="410dp"
+        android:layout_height="350dp"
         android:layout_marginTop="50dp"
+        android:layout_marginBottom="20dp"
         android:padding="5dp"
         app:layout_constraintBottom_toTopOf="@+id/addTaskButton"
         app:layout_constraintEnd_toEndOf="parent"
@@ -68,20 +69,22 @@
         android:id="@+id/addTaskButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginBottom="96dp"
+        android:layout_marginBottom="60dp"
         android:text="@string/addtask"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.213"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/settingBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="284dp"
-        android:layout_marginBottom="96dp"
+        android:layout_marginBottom="60dp"
         android:text="@string/setting"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.743"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -89,6 +92,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
+        android:layout_marginBottom="28dp"
         android:text="@string/user_name"
         app:layout_constraintBottom_toTopOf="@+id/tasks_recycleView"
         app:layout_constraintEnd_toEndOf="parent"

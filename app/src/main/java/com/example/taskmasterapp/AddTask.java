@@ -1,5 +1,6 @@
 package com.example.taskmasterapp;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -7,48 +8,44 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.FileUtils;
+import android.util.Log;
+import android.webkit.MimeTypeMap;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
 
-import android.annotation.SuppressLint;
-import android.os.FileUtils;
-import android.util.Log;
-import android.view.MenuItem;
-import android.view.View;
-import android.webkit.MimeTypeMap;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.amplifyframework.AmplifyException;
-import com.amplifyframework.api.aws.AWSApiPlugin;
 import com.amplifyframework.api.graphql.model.ModelMutation;
+import com.amplifyframework.api.graphql.model.ModelQuery;
 import com.amplifyframework.core.Amplify;
-import com.amplifyframework.datastore.AWSDataStorePlugin;
 import com.amplifyframework.datastore.generated.model.Task;
 import com.amplifyframework.datastore.generated.model.Team;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 
 public class AddTask extends AppCompatActivity {
 
-    AppDatabase database;
-    TaskDao taskDao;
-//    String theTeam;
+    private static final String TAG = "AddTask";
+    //    AppDatabase database;
+//    TaskDao taskDao;
     private String uploadedFileName;
+    private Team teamData = null;
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
     @SuppressLint("RestrictedApi")
@@ -57,7 +54,16 @@ public class AddTask extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_add_task);
-        getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDefaultDisplayHomeAsUpEnabled(true);
+
+
+        // Obtain the FirebaseAnalytics instance.
+        FirebaseAnalytics mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "MainActivity");
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "MainActivity");
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "Page");
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
 
 //         upload file
         ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
@@ -66,7 +72,7 @@ public class AddTask extends AppCompatActivity {
                     if (result.getResultCode() == Activity.RESULT_OK) {
                         try {
                             onChooseFile(result);
-                        } catch (IOException e) {
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
@@ -83,55 +89,60 @@ public class AddTask extends AppCompatActivity {
 
         Button addTask = findViewById(R.id.newTaskSubmit);
 
-        addTask.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EditText taskTitle = findViewById(R.id.newTaskName);
-                EditText taskBody = findViewById(R.id.taskBodyFromAddTask);
+        addTask.setOnClickListener(v -> {
+            EditText taskTitle = findViewById(R.id.newTaskName);
+            EditText taskBody = findViewById(R.id.taskBodyFromAddTask);
 
-                @SuppressLint("CutPasteId") String theTeam = ((Spinner) findViewById(R.id.spinner)).getSelectedItem().toString();
+            @SuppressLint("CutPasteId") String theTeam = ((Spinner) findViewById(R.id.spinner)).getSelectedItem().toString();
 
-                Team team = Team
-                        .builder()
-                        .name(theTeam)
-                        .build();
-
-                Task newTask = Task
-                        .builder()
-                        .title(taskTitle.getText().toString())
-                        .body(taskBody.getText().toString())
-                        .state("run")
-                        .team(team).build();
-
-
-                Amplify.API.mutate(ModelMutation.create(newTask),
-                        response -> Log.i("response", "task has been created" + response.getData()),
-                        error -> Log.e("error", "something went wrong" + error.toString()));
-
-//                Amplify.API.mutate(ModelMutation.create(team),
-//                        response -> Log.i("response", "team has been created" + response.getData()),
-//                        error -> Log.e("error", "something went wrong" + error.toString()));
-//                Amplify.DataStore.save(newTask,
-//                        success -> Log.i("aws", "saved" + success.item().getTaskName()),
-//                        error -> Log.e("aws", "failed" + error.toString()));
-
-
-                Toast.makeText(AddTask.this, "Task Has Been Added", Toast.LENGTH_SHORT).show();
-//                taskDao.addOne(newTask);
-
+            getTeamDetailFromAPIByName(theTeam);
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
+
+            Log.i(TAG, "onCreate: teamData -> " + teamData);
+            Task newTask = Task
+                    .builder()
+                    .title(taskTitle.getText().toString())
+                    .description(taskBody.getText().toString())
+                    .status("run")
+                    .team(teamData).build();
+
+            addTaskTpAmplify(newTask);
+            Toast.makeText(AddTask.this, "Task Has Been Added", Toast.LENGTH_SHORT).show();
         });
+
+
+        // Get intent, action and MIME type
+        Intent intent = getIntent();
+        String action = intent.getAction();
+        String type = intent.getType();
+
+        Log.i("getIntent", "onCreate: " + type);
+        Log.i("getIntent", "onCreate: " + (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM));
+        if (Intent.ACTION_SEND.equals(action) && type != null) {
+            if (type.startsWith("image/")) {
+                try {
+                    onChooseFile((Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM)); // Handle single image being sent
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
-    private void onChooseFile(ActivityResult activityResult) throws IOException {
+    private void onChooseFile(ActivityResult activityResult) {
 
         Uri uri = null;
         if (activityResult.getData() != null) {
             uri = activityResult.getData().getData();
         }
         assert uri != null;
-        uploadedFileName = new Date().toString() + "." + getMimeType(getApplicationContext(),uri);
+        //    String theTeam;
+        String uploadedFileName = new Date().toString() + "." + getMimeType(getApplicationContext(), uri);
 
         File uploadFile = new File(getApplicationContext().getFilesDir(), "uploadFile");
 
@@ -150,6 +161,36 @@ public class AddTask extends AppCompatActivity {
         );
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.Q)
+    private void onChooseFile(Uri uri) throws IOException {
+
+        uploadedFileName = new Date().toString() + "." + getMimeType(getApplicationContext(),uri);
+
+        File uploadFile = new File(getApplicationContext().getFilesDir(), "uploadFile");
+
+        try {
+            InputStream inputStream = getContentResolver().openInputStream(uri);
+            FileUtils.copy(inputStream, new FileOutputStream(uploadFile));
+        } catch (Exception exception) {
+            Log.e("onChooseFile", "onActivityResult: file upload failed" + exception.toString());
+        }
+
+        Amplify.Storage.uploadFile(
+                uploadedFileName,
+                uploadFile,
+                success -> {
+                    Log.i("onChooseFile", "uploadFileToS3: succeeded " + success.getKey());
+                    Toast.makeText(getApplicationContext(), "Image Successfully Uploaded", Toast.LENGTH_SHORT).show();
+
+                },
+                error -> {
+                    Log.e("onChooseFile", "uploadFileToS3: failed " + error.toString());
+                    Toast.makeText(getApplicationContext(), "Image Upload failed", Toast.LENGTH_SHORT).show();
+
+                }
+        );
+    }
+
     public static String getMimeType(Context context, Uri uri) {
         String extension;
 
@@ -162,6 +203,26 @@ public class AddTask extends AppCompatActivity {
         }
 
         return extension;
+    }
+
+    public void getTeamDetailFromAPIByName(String name) {
+        Amplify.API.query(
+                ModelQuery.list(Team.class, Team.NAME.contains(name)),
+                response -> {
+                    for (Team teamDetail : response.getData()) {
+                        Log.i(TAG, "the team name is =>" + teamDetail.getName());
+                        teamData = teamDetail;
+                    }
+                },
+                error -> Log.e(TAG, "Query failure", error)
+        );
+    }
+
+    public void addTaskTpAmplify(Task newTask){
+        Log.i(TAG, "addTaskTpAmplify: in add mutation method");
+        Amplify.API.mutate(ModelMutation.create(newTask),
+                response -> Log.i(TAG, "task has been created -> " + response.getData()),
+                error -> Log.e(TAG, "something went wrong -> " + error.toString()));
     }
 
 }

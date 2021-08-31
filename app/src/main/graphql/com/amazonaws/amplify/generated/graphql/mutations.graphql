@@ -1,94 +1,4 @@
 # this is an auto generated file. This will be overwritten
-mutation CreateTeam(
-  $input: CreateTeamInput!
-  $condition: ModelTeamConditionInput
-) {
-  createTeam(input: $input, condition: $condition) {
-    id
-    name
-    task {
-      items {
-        id
-        title
-        body
-        state
-        teamId
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
-      nextToken
-      startedAt
-    }
-    _version
-    _deleted
-    _lastChangedAt
-    createdAt
-    updatedAt
-  }
-}
-mutation UpdateTeam(
-  $input: UpdateTeamInput!
-  $condition: ModelTeamConditionInput
-) {
-  updateTeam(input: $input, condition: $condition) {
-    id
-    name
-    task {
-      items {
-        id
-        title
-        body
-        state
-        teamId
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
-      nextToken
-      startedAt
-    }
-    _version
-    _deleted
-    _lastChangedAt
-    createdAt
-    updatedAt
-  }
-}
-mutation DeleteTeam(
-  $input: DeleteTeamInput!
-  $condition: ModelTeamConditionInput
-) {
-  deleteTeam(input: $input, condition: $condition) {
-    id
-    name
-    task {
-      items {
-        id
-        title
-        body
-        state
-        teamId
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
-      nextToken
-      startedAt
-    }
-    _version
-    _deleted
-    _lastChangedAt
-    createdAt
-    updatedAt
-  }
-}
 mutation CreateTask(
   $input: CreateTaskInput!
   $condition: ModelTaskConditionInput
@@ -96,13 +6,14 @@ mutation CreateTask(
   createTask(input: $input, condition: $condition) {
     id
     title
-    body
-    state
-    teamId
+    description
+    status
+    taskId
+    fileName
     team {
       id
       name
-      task {
+      teamTasks {
         nextToken
         startedAt
       }
@@ -126,13 +37,14 @@ mutation UpdateTask(
   updateTask(input: $input, condition: $condition) {
     id
     title
-    body
-    state
-    teamId
+    description
+    status
+    taskId
+    fileName
     team {
       id
       name
-      task {
+      teamTasks {
         nextToken
         startedAt
       }
@@ -156,13 +68,14 @@ mutation DeleteTask(
   deleteTask(input: $input, condition: $condition) {
     id
     title
-    body
-    state
-    teamId
+    description
+    status
+    taskId
+    fileName
     team {
       id
       name
-      task {
+      teamTasks {
         nextToken
         startedAt
       }
@@ -171,6 +84,99 @@ mutation DeleteTask(
       _lastChangedAt
       createdAt
       updatedAt
+    }
+    _version
+    _deleted
+    _lastChangedAt
+    createdAt
+    updatedAt
+  }
+}
+mutation CreateTeam(
+  $input: CreateTeamInput!
+  $condition: ModelTeamConditionInput
+) {
+  createTeam(input: $input, condition: $condition) {
+    id
+    name
+    teamTasks {
+      items {
+        id
+        title
+        description
+        status
+        taskId
+        fileName
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      nextToken
+      startedAt
+    }
+    _version
+    _deleted
+    _lastChangedAt
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateTeam(
+  $input: UpdateTeamInput!
+  $condition: ModelTeamConditionInput
+) {
+  updateTeam(input: $input, condition: $condition) {
+    id
+    name
+    teamTasks {
+      items {
+        id
+        title
+        description
+        status
+        taskId
+        fileName
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      nextToken
+      startedAt
+    }
+    _version
+    _deleted
+    _lastChangedAt
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteTeam(
+  $input: DeleteTeamInput!
+  $condition: ModelTeamConditionInput
+) {
+  deleteTeam(input: $input, condition: $condition) {
+    id
+    name
+    teamTasks {
+      items {
+        id
+        title
+        description
+        status
+        taskId
+        fileName
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      nextToken
+      startedAt
     }
     _version
     _deleted

@@ -40,7 +40,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull TaskAdapter.ViewHolder holder, int position) {
         Task task = tasks.get(position);
         holder.taskName.setText(task.getTitle());
-        holder.taskStatus.setText(task.getState());
+        holder.taskStatus.setText(task.getStatus());
     }
 
 

@@ -4,16 +4,15 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
-
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.amplifyframework.core.Amplify;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.squareup.picasso.Picasso;
 
 import java.util.Objects;
@@ -21,15 +20,23 @@ import java.util.Objects;
 public class TaskDetail extends AppCompatActivity {
 
     private String fileURL;
-
-    public static final String TAG = "TaskDetails";
-    AppDatabase database;
-    TaskDao taskDao;
+//    public static final String TAG = "TaskDetails";
+//    AppDatabase database;
+//    TaskDao taskDao;
 
     @SuppressLint("RestrictedApi")
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Obtain the FirebaseAnalytics instance.
+        FirebaseAnalytics mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "MainActivity");
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "MainActivity");
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "Page");
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+
 
 
         TextView fileLinkDetail = findViewById(R.id.fileLinkDetail);
@@ -88,7 +95,7 @@ public class TaskDetail extends AppCompatActivity {
         taskStatusTextView.setText(getTaskStatus);
 
         TextView taskTeamTextView = findViewById(R.id.singleTaskTeam);
-        taskStatusTextView.setText(getTaskTeam);
+        taskTeamTextView.setText(getTaskTeam);
 
     }
 }
