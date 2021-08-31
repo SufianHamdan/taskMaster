@@ -51,21 +51,39 @@ I added all the [test](./app/src/androidTest/java/com/example/taskmasterapp/task
 lab06
 The data is stored in AWS Amplify using DynamoDB 
 And the app is getting the data from DynamoDB
+![image](./screenshots/amplifyDynamoDB.png)
 
 
 lab07
 The user can select a team while adding a task to specify in which team this task for
 The user also can go setting and select a team to display all tasks that belongs to that team
-
+![image](./screenshots/teams.png)
 
 lab08
 Using S3 storage The user can upload a file
+![image](./screenshots/uploadFile.png)
 
 lab09
 Using AWS The user can receive a notification
+![image](./screenshots/notification.png)
+
 
 lab10 
-Using firebase Crashlyitcs     
+Using firebase Crashlyitcs and aws analysis
+![image](./screenshots/crashylitcs.png)
+![image](./screenshots/awsAnalysis.png)
+
+lab11
+other apps can share files and images to our app
+![image](./screenshots/shareWithMyApp.png)
+
+lab12
+location
+
+lab13
+Adding Crashlytics events in views
+![image](./screenshots/crashylitcs.png)
+
 
 
 
