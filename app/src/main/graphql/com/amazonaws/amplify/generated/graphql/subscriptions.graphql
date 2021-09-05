@@ -20,6 +20,8 @@ subscription OnCreateTask {
       createdAt
       updatedAt
     }
+    latitude
+    longitude
     _version
     _deleted
     _lastChangedAt
@@ -48,6 +50,8 @@ subscription OnUpdateTask {
       createdAt
       updatedAt
     }
+    latitude
+    longitude
     _version
     _deleted
     _lastChangedAt
@@ -76,6 +80,8 @@ subscription OnDeleteTask {
       createdAt
       updatedAt
     }
+    latitude
+    longitude
     _version
     _deleted
     _lastChangedAt
@@ -95,6 +101,8 @@ subscription OnCreateTeam {
         status
         taskId
         fileName
+        latitude
+        longitude
         _version
         _deleted
         _lastChangedAt
@@ -123,6 +131,8 @@ subscription OnUpdateTeam {
         status
         taskId
         fileName
+        latitude
+        longitude
         _version
         _deleted
         _lastChangedAt
@@ -151,6 +161,8 @@ subscription OnDeleteTeam {
         status
         taskId
         fileName
+        latitude
+        longitude
         _version
         _deleted
         _lastChangedAt

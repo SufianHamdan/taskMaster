@@ -27,6 +27,8 @@ query SyncTasks(
         createdAt
         updatedAt
       }
+      latitude
+      longitude
       _version
       _deleted
       _lastChangedAt
@@ -58,6 +60,8 @@ query GetTask($id: ID!) {
       createdAt
       updatedAt
     }
+    latitude
+    longitude
     _version
     _deleted
     _lastChangedAt
@@ -87,6 +91,8 @@ query ListTasks(
         createdAt
         updatedAt
       }
+      latitude
+      longitude
       _version
       _deleted
       _lastChangedAt
@@ -138,6 +144,8 @@ query GetTeam($id: ID!) {
         status
         taskId
         fileName
+        latitude
+        longitude
         _version
         _deleted
         _lastChangedAt

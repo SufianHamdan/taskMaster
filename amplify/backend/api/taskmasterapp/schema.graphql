@@ -8,7 +8,8 @@ type Task
     taskId:ID!
     fileName:String
     team: Team @connection(fields: ["taskId"])
-
+    latitude: Float
+    longitude: Float
 }
 
 type Team @model {

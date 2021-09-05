@@ -42,6 +42,9 @@ import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final String TASK_LATITUDE = "taskLatitude";
+    public static final String TASK_LONGITUDE = "taskLongitude";
+
     private static final String TAG = "MainActivity";
     private static PinpointManager pinpointManager;
 
@@ -117,6 +120,8 @@ public class MainActivity extends AppCompatActivity {
                 goToDetailsIntent.putExtra(TASK_BODY, tasks.get(position).getDescription());
                 goToDetailsIntent.putExtra(TASK_STATUS, tasks.get(position).getStatus());
                 goToDetailsIntent.putExtra(TASK_TEAM, tasks.get(position).getTeam().getName());
+                goToDetailsIntent.putExtra(TASK_LATITUDE, tasks.get(position).getLatitude());
+                goToDetailsIntent.putExtra(TASK_LONGITUDE, tasks.get(position).getLongitude());
 
                 startActivity(goToDetailsIntent);
             }

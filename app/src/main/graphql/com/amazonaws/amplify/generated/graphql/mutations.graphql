@@ -23,6 +23,8 @@ mutation CreateTask(
       createdAt
       updatedAt
     }
+    latitude
+    longitude
     _version
     _deleted
     _lastChangedAt
@@ -54,6 +56,8 @@ mutation UpdateTask(
       createdAt
       updatedAt
     }
+    latitude
+    longitude
     _version
     _deleted
     _lastChangedAt
@@ -85,6 +89,8 @@ mutation DeleteTask(
       createdAt
       updatedAt
     }
+    latitude
+    longitude
     _version
     _deleted
     _lastChangedAt
@@ -107,6 +113,8 @@ mutation CreateTeam(
         status
         taskId
         fileName
+        latitude
+        longitude
         _version
         _deleted
         _lastChangedAt
@@ -138,6 +146,8 @@ mutation UpdateTeam(
         status
         taskId
         fileName
+        latitude
+        longitude
         _version
         _deleted
         _lastChangedAt
@@ -169,6 +179,8 @@ mutation DeleteTeam(
         status
         taskId
         fileName
+        latitude
+        longitude
         _version
         _deleted
         _lastChangedAt

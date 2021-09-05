@@ -14,6 +14,14 @@
     <string name="upload_file">Upload File</string>
     <string name="task_image">taskImage</string>
     <string name="download_the_linked_file">Download</string>
+    <string name="Location">Location</string>
+    <string name="todo">todo</string>
+    <string name="SubmitButtonForNewTask">SubmitButtonForNewTask</string>
+    <string name="task_title_details">task_title_details</string>
+    <string name="task_body_details">task_body_details</string>
+    <string name="task_body">task_body</string>
+    <string name="task_title_detail">task_title_detail</string>
+    <string name="task_detail">task_detail</string>
 
     <string-array name="team_menu">
         <item>Team A</item>
